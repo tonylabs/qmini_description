@@ -1,0 +1,710 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="qmini_description">
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="-0.0182909170846382 0.00473099504389014 -0.0629042771593323"
+        rpy="0 0 0" />
+      <mass
+        value="5.42932022155468" />
+      <inertia
+        ixx="0.0149933374594577"
+        ixy="-7.09333674164335E-06"
+        ixz="0.000157357885781022"
+        iyy="0.0147091926504819"
+        iyz="4.64956937112053E-07"
+        izz="0.0195454848838474" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://qmini_description/meshes/base_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.894117647058823 0.894117647058823 0.894117647058823 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://qmini_description/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="hip_yaw_l">
+    <inertial>
+      <origin
+        xyz="0.00157257352749057 0.00150813136751506 -0.106099158458558"
+        rpy="0 0 0" />
+      <mass
+        value="0.802584639037977" />
+      <inertia
+        ixx="0.00107092490267698"
+        ixy="1.48637944223815E-06"
+        ixz="-5.16356502335778E-06"
+        iyy="0.000540538482291478"
+        iyz="-2.11038732588992E-05"
+        izz="0.000644837598969369" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://qmini_description/meshes/hip_yaw_l.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://qmini_description/meshes/hip_yaw_l.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="hip_yaw_l"
+    type="revolute">
+    <origin
+      xyz="0.0136775248726286 0.0553048691600504 -0.000799999999999912"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="hip_yaw_l" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="-0.5"
+      upper="0.35"
+      effort="20"
+      velocity="30" />
+    <dynamics
+      damping="1"
+      friction="0.01" />
+  </joint>
+  <link
+    name="hip_roll_l">
+    <inertial>
+      <origin
+        xyz="0.0106099361923289 -0.0195081631154542 1.56266732834753E-05"
+        rpy="0 0 0" />
+      <mass
+        value="0.144022856409482" />
+      <inertia
+        ixx="0.000305184964518652"
+        ixy="-3.31056323919548E-05"
+        ixz="-1.51789868683165E-10"
+        iyy="0.000117250094055217"
+        iyz="-1.03476034629425E-07"
+        izz="0.000230691797611456" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://qmini_description/meshes/hip_roll_l.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://qmini_description/meshes/hip_roll_l.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="hip_roll_l"
+    type="revolute">
+    <origin
+      xyz="0.0179161263785935 0.0536951934928277 -0.1073"
+      rpy="0 0 0" />
+    <parent
+      link="hip_yaw_l" />
+    <child
+      link="hip_roll_l" />
+    <axis
+      xyz="1 0 0" />
+    <limit
+      lower="-0.45"
+      upper="0.45"
+      effort="60"
+      velocity="10" />
+    <dynamics
+      damping="1"
+      friction="0.07" />
+  </joint>
+  <link
+    name="hip_pitch_l">
+    <inertial>
+      <origin
+        xyz="-0.0407866787613797 0.0197903955419678 -0.0406853590842489"
+        rpy="0 0 0" />
+      <mass
+        value="1.54137261485278" />
+      <inertia
+        ixx="0.00207944230414339"
+        ixy="4.17609684312946E-07"
+        ixz="0.00072890570469775"
+        iyy="0.00403899836157361"
+        iyz="-1.36631470784177E-06"
+        izz="0.00211531828077732" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://qmini_description/meshes/hip_pitch_l.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://qmini_description/meshes/hip_pitch_l.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="hip_pitch_l"
+    type="revolute">
+    <origin
+      xyz="-0.00149999904255326 0.0279999989589162 0"
+      rpy="0 0 0" />
+    <parent
+      link="hip_roll_l" />
+    <child
+      link="hip_pitch_l" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="-0.6"
+      upper="1.45"
+      effort="20"
+      velocity="30" />
+    <dynamics
+      damping="0.4"
+      friction="0.03" />
+  </joint>
+  <link
+    name="knee_pitch_l">
+    <inertial>
+      <origin
+        xyz="0.0432277487466289 -0.00109984197149177 -0.119229697637183"
+        rpy="0 0 0" />
+      <mass
+        value="0.882226092632053" />
+      <inertia
+        ixx="0.00106518542318677"
+        ixy="1.8315987865838E-05"
+        ixz="-0.000149966740281335"
+        iyy="0.00168837445998272"
+        iyz="-5.19016143457157E-05"
+        izz="0.000718002165198291" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://qmini_description/meshes/knee_pitch_l.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://qmini_description/meshes/knee_pitch_l.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="knee_pitch_l"
+    type="revolute">
+    <origin
+      xyz="-0.0813172798364506 -0.000299999426322167 -0.0813172798385736"
+      rpy="0 0 0" />
+    <parent
+      link="hip_pitch_l" />
+    <child
+      link="knee_pitch_l" />
+    <axis
+      xyz="0 -1 0" />
+    <limit
+      lower="-1.1"
+      upper="1.05"
+      effort="20"
+      velocity="30" />
+    <dynamics
+      damping="1"
+      friction="0.01" />
+  </joint>
+  <link
+    name="ankle_pitch_l">
+    <inertial>
+      <origin
+        xyz="0.016019762206154 -0.00558690601758391 -0.0429756357536323"
+        rpy="0 0 0" />
+      <mass
+        value="0.449436022380766" />
+      <inertia
+        ixx="0.000309170169632197"
+        ixy="-4.95463142447112E-06"
+        ixz="-1.90494705020359E-06"
+        iyy="0.00128539334634947"
+        iyz="1.21724639875319E-05"
+        izz="0.00101643186086027" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://qmini_description/meshes/ankle_pitch_l.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://qmini_description/meshes/ankle_pitch_l.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="ankle_pitch_l"
+    type="revolute">
+    <origin
+      xyz="0.0530131209926416 0.0208000020258525 -0.145652356077947"
+      rpy="0 0 0" />
+    <parent
+      link="knee_pitch_l" />
+    <child
+      link="ankle_pitch_l" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="-1.6"
+      upper="1.05"
+      effort="20"
+      velocity="30" />
+    <dynamics
+      damping="0.8"
+      friction="0.01" />
+  </joint>
+  <link
+    name="hip_yaw_r">
+    <inertial>
+      <origin
+        xyz="0.00160050032664603 -0.00357147380096676 -0.104125642076649"
+        rpy="0 0 0" />
+      <mass
+        value="0.275448262315994" />
+      <inertia
+        ixx="0.000388100991015136"
+        ixy="-8.15866475178E-07"
+        ixz="-3.845977666184E-06"
+        iyy="0.000181539130822411"
+        iyz="1.91761872526566E-05"
+        izz="0.000271359032581938" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://qmini_description/meshes/hip_yaw_r.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.894117647058823 0.894117647058823 0.894117647058823 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://qmini_description/meshes/hip_yaw_r.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="hip_yaw_r"
+    type="revolute">
+    <origin
+      xyz="0.0136775258700451 -0.0553047455885371 -0.000799999999999773"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="hip_yaw_r" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="-0.35"
+      upper="0.5"
+      effort="20"
+      velocity="30" />
+    <dynamics
+      damping="1"
+      friction="0.01" />
+  </joint>
+  <link
+    name="hip_roll_r">
+    <inertial>
+      <origin
+        xyz="0.0106099697781215 0.0195082639049101 1.55851095153675E-05"
+        rpy="0 0 0" />
+      <mass
+        value="0.115217805361324" />
+      <inertia
+        ixx="0.000244147462917231"
+        ixy="2.64844267907307E-05"
+        ixz="-9.26490805621248E-11"
+        iyy="9.37998466721125E-05"
+        iyz="8.29050912809898E-08"
+        izz="0.000184553083442257" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://qmini_description/meshes/hip_roll_r.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://qmini_description/meshes/hip_roll_r.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="hip_roll_r"
+    type="revolute">
+    <origin
+      xyz="0.0179161246071409 -0.0536951920782032 -0.1073"
+      rpy="0 0 0" />
+    <parent
+      link="hip_yaw_r" />
+    <child
+      link="hip_roll_r" />
+    <axis
+      xyz="1 0 0" />
+    <limit
+      lower="-0.45"
+      upper="0.45"
+      effort="60"
+      velocity="10" />
+    <dynamics
+      damping="1"
+      friction="0.07" />
+  </joint>
+  <link
+    name="hip_pitch_r">
+    <inertial>
+      <origin
+        xyz="-0.0409749221293217 -0.021461902899233 -0.0407240317532309"
+        rpy="0 0 0" />
+      <mass
+        value="0.49986194750879" />
+      <inertia
+        ixx="0.0011726978385926"
+        ixy="-3.37958372793865E-07"
+        ixz="0.000576729511417179"
+        iyy="0.00229391152820365"
+        iyz="1.09454382045711E-06"
+        izz="0.00119229525588869" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://qmini_description/meshes/hip_pitch_r.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://qmini_description/meshes/hip_pitch_r.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="hip_pitch_r"
+    type="revolute">
+    <origin
+      xyz="-0.00150000021047648 -0.028200001941497 0"
+      rpy="0 0 0" />
+    <parent
+      link="hip_roll_r" />
+    <child
+      link="hip_pitch_r" />
+    <axis
+      xyz="0 -1 0" />
+    <limit
+      lower="-1.45"
+      upper="0.6"
+      effort="20"
+      velocity="30" />
+    <dynamics
+      damping="0.4"
+      friction="0.03" />
+  </joint>
+  <link
+    name="knee_pitch_r">
+    <inertial>
+      <origin
+        xyz="0.0328131241260022 0.0045970932679659 -0.0902844079912245"
+        rpy="0 0 0" />
+      <mass
+        value="0.339161913190806" />
+      <inertia
+        ixx="0.000603476285980854"
+        ixy="-1.49059367126081E-05"
+        ixz="-0.000116166780198068"
+        iyy="0.00088206167832651"
+        iyz="4.11259318934856E-05"
+        izz="0.000327671758540336" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://qmini_description/meshes/knee_pitch_r.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://qmini_description/meshes/knee_pitch_r.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="knee_pitch_r"
+    type="revolute">
+    <origin
+      xyz="-0.0813172798364519 0.000499999426317815 -0.0813172798399789"
+      rpy="0 0 0" />
+    <parent
+      link="hip_pitch_r" />
+    <child
+      link="knee_pitch_r" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="-1.05"
+      upper="1.1"
+      effort="20"
+      velocity="30" />
+    <dynamics
+      damping="1"
+      friction="0.01" />
+  </joint>
+  <link
+    name="ankle_pitch_r">
+    <inertial>
+      <origin
+        xyz="0.0160172104109755 0.00558723918696771 -0.0429761139651282"
+        rpy="0 0 0" />
+      <mass
+        value="0.359560796502544" />
+      <inertia
+        ixx="0.000247335438517938"
+        ixy="3.96133948471453E-06"
+        ixz="-1.52272747193878E-06"
+        iyy="0.00102837739543181"
+        iyz="-9.73725775393784E-06"
+        izz="0.000813215568532934" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://qmini_description/meshes/ankle_pitch_r.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://qmini_description/meshes/ankle_pitch_r.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="ankle_pitch_r"
+    type="revolute">
+    <origin
+      xyz="0.0530131229787218 -0.020799999048718 -0.145652356080173"
+      rpy="0 0 0" />
+    <parent
+      link="knee_pitch_r" />
+    <child
+      link="ankle_pitch_r" />
+    <axis
+      xyz="0 -1 0" />
+    <limit
+      lower="-1.05"
+      upper="1.6"
+      effort="20"
+      velocity="30" />
+    <dynamics
+      damping="0.8"
+      friction="0.01" />
+  </joint>
+  <link
+    name="imu">
+    <inertial>
+      <origin
+        xyz="-2.26414277778274E-06 0.000197259770274789 0.000146615187144011"
+        rpy="0 0 0" />
+      <mass
+        value="0.00680213073863758" />
+      <inertia
+        ixx="4.12631829543454E-07"
+        ixy="-1.7416228257396E-08"
+        ixz="-8.32584211322654E-11"
+        iyy="3.98458190852856E-07"
+        iyz="-4.52600081114969E-11"
+        izz="6.51125958482511E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://qmini_description/meshes/imu.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.894117647058823 0.894117647058823 0.894117647058823 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://qmini_description/meshes/imu.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="imu"
+    type="fixed">
+    <origin
+      xyz="0.0235936510996696 0 0.0188"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="imu" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+</robot>
