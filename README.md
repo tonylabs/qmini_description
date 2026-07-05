@@ -1,2 +1,0 @@
-# qmini_description
-
