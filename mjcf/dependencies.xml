@@ -19,7 +19,8 @@
         <material name="matplane" reflectance="0." texture="texplane" texrepeat="1 1" texuniform="true"/>
         <material name="matplane2" reflectance="0.1" texture="texplane2" texrepeat="1 1" texuniform="true"/>
 
+        <!--高度场-->
         <!--hfield name='hf0' nrow='200' ncol='200' size="5 5 0.2 .1"/-->
-        <!--hfield file="../terrain/uneven.png" name="hf1" ncol="0" nrow="0" size="50 50 0.35 0.1" /-->  
+        <!--hfield file="../terrain/uneven.png" name="hf1" ncol="0" nrow="0" size="50 50 0.35 0.1" /-->
     </asset>
 </mujocoinclude>

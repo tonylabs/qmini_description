@@ -17,7 +17,9 @@
 		<motor name="ankle_pitch_r" joint="ankle_pitch_r" gear="1" ctrllimited="true" ctrlrange="-20 20"/>
     </actuator>
     <sensor>
-    	<!--pos-->
+    	<!-- Joint position sensors: actuatorpos reports the angle (rad) of each
+    	     actuated joint, emulating motor encoder readings for all 10 leg joints -->
+
 		<actuatorpos name='hip_yaw_l_p' actuator='hip_yaw_l' user='13'/>
 		<actuatorpos name='hip_roll_l_p' actuator='hip_roll_l' user='13'/>
 		<actuatorpos name='hip_pitch_l_p' actuator='hip_pitch_l' user='13'/>
@@ -29,7 +31,9 @@
 		<actuatorpos name='knee_pitch_r_p' actuator='knee_pitch_r' user='13'/>
 		<actuatorpos name='ankle_pitch_r_p' actuator='ankle_pitch_r' user='13'/>
 
-		<!--vel-->
+		<!-- Joint velocity sensors: actuatorvel reports the angular velocity (rad/s)
+		     of each actuated joint, as measured/estimated by the motor controllers -->
+
 		<actuatorvel name='hip_yaw_l_v' actuator='hip_yaw_l' user='13'/>
 		<actuatorvel name='hip_roll_l_v' actuator='hip_roll_l' user='13'/>
 		<actuatorvel name='hip_pitch_l_v' actuator='hip_pitch_l' user='13'/>
@@ -41,7 +45,9 @@
 		<actuatorvel name='knee_pitch_r_v' actuator='knee_pitch_r' user='13'/>
 		<actuatorvel name='ankle_pitch_r_v' actuator='ankle_pitch_r' user='13'/>
 
-		<!--frc-->
+		<!-- Joint torque sensors: actuatorfrc reports the torque (N*m) applied by each
+		     actuator, with gaussian noise (std 1e-3) to mimic real torque estimation error -->
+
 		<actuatorfrc name='hip_yaw_l_f' actuator='hip_yaw_l' user='13' noise='1e-3'/>
 		<actuatorfrc name='hip_roll_l_f' actuator='hip_roll_l' user='13' noise='1e-3'/>
 		<actuatorfrc name='hip_pitch_l_f' actuator='hip_pitch_l' user='13' noise='1e-3'/>
@@ -53,12 +59,12 @@
 		<actuatorfrc name='knee_pitch_r_f' actuator='knee_pitch_r' user='13' noise='1e-3'/>
 		<actuatorfrc name='ankle_pitch_r_f' actuator='ankle_pitch_r' user='13' noise='1e-3'/>
 
-        <framequat     name='orientation' objtype='site' noise='0.001' objname='imu'/>
-        <framepos      name='position' objtype='site' noise='0.001' objname='imu'/>
-        <gyro          name='angular-velocity'    site='imu' noise='0.005' cutoff='34.9'/>
-        <velocimeter   name='linear-velocity'     site='imu' noise='0.001' cutoff='30'/>
+        <framequat name='orientation' objtype='site' noise='0.001' objname='imu'/>
+        <framepos name='position' objtype='site' noise='0.001' objname='imu'/>
+        <gyro name='angular-velocity' site='imu' noise='0.005' cutoff='34.9'/>
+        <velocimeter name='linear-velocity' site='imu' noise='0.001' cutoff='30'/>
         <accelerometer name='linear-acceleration' site='imu' noise='0.005' cutoff='157'/>
-        <magnetometer  name='magnetometer'        site='imu'/>
+        <magnetometer name='magnetometer' site='imu'/>
 		<gyro name="imu_gyro" site="imu" noise="0.0" />
    		<accelerometer name="imu_acc" site="imu" />
     </sensor>
