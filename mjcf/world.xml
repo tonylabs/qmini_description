@@ -1,0 +1,65 @@
+<mujoco>
+	<include file="scene.xml"/>
+	<include file="dependencies.xml"/>
+	<worldbody>
+		<include file="qmini_description.xml" />
+	</worldbody>
+ 	<actuator>
+		<motor name="hip_yaw_l" joint="hip_yaw_l" gear="1" ctrllimited="true" ctrlrange="-20 20"/>
+		<motor name="hip_roll_l" joint="hip_roll_l" gear="1" ctrllimited="true" ctrlrange="-60 60"/>
+		<motor name="hip_pitch_l" joint="hip_pitch_l" gear="1" ctrllimited="true" ctrlrange="-20 20"/>
+		<motor name="knee_pitch_l" joint="knee_pitch_l" gear="1" ctrllimited="true" ctrlrange="-20 20"/>
+		<motor name="ankle_pitch_l" joint="ankle_pitch_l" gear="1" ctrllimited="true" ctrlrange="-20 20"/>
+		<motor name="hip_yaw_r" joint="hip_yaw_r" gear="1" ctrllimited="true" ctrlrange="-20 20"/>
+		<motor name="hip_roll_r" joint="hip_roll_r" gear="1" ctrllimited="true" ctrlrange="-60 60"/>
+		<motor name="hip_pitch_r" joint="hip_pitch_r" gear="1" ctrllimited="true" ctrlrange="-20 20"/>
+		<motor name="knee_pitch_r" joint="knee_pitch_r" gear="1" ctrllimited="true" ctrlrange="-20 20"/>
+		<motor name="ankle_pitch_r" joint="ankle_pitch_r" gear="1" ctrllimited="true" ctrlrange="-20 20"/>
+    </actuator>
+    <sensor>
+    	<!--pos-->
+		<actuatorpos name='hip_yaw_l_p' actuator='hip_yaw_l' user='13'/>
+		<actuatorpos name='hip_roll_l_p' actuator='hip_roll_l' user='13'/>
+		<actuatorpos name='hip_pitch_l_p' actuator='hip_pitch_l' user='13'/>
+		<actuatorpos name='knee_pitch_l_p' actuator='knee_pitch_l' user='13'/>
+		<actuatorpos name='ankle_pitch_l_p' actuator='ankle_pitch_l' user='13'/>
+		<actuatorpos name='hip_yaw_r_p' actuator='hip_yaw_r' user='13'/>
+		<actuatorpos name='hip_roll_r_p' actuator='hip_roll_r' user='13'/>
+		<actuatorpos name='hip_pitch_r_p' actuator='hip_pitch_r' user='13'/>
+		<actuatorpos name='knee_pitch_r_p' actuator='knee_pitch_r' user='13'/>
+		<actuatorpos name='ankle_pitch_r_p' actuator='ankle_pitch_r' user='13'/>
+
+		<!--vel-->
+		<actuatorvel name='hip_yaw_l_v' actuator='hip_yaw_l' user='13'/>
+		<actuatorvel name='hip_roll_l_v' actuator='hip_roll_l' user='13'/>
+		<actuatorvel name='hip_pitch_l_v' actuator='hip_pitch_l' user='13'/>
+		<actuatorvel name='knee_pitch_l_v' actuator='knee_pitch_l' user='13'/>
+		<actuatorvel name='ankle_pitch_l_v' actuator='ankle_pitch_l' user='13'/>
+		<actuatorvel name='hip_yaw_r_v' actuator='hip_yaw_r' user='13'/>
+		<actuatorvel name='hip_roll_r_v' actuator='hip_roll_r' user='13'/>
+		<actuatorvel name='hip_pitch_r_v' actuator='hip_pitch_r' user='13'/>
+		<actuatorvel name='knee_pitch_r_v' actuator='knee_pitch_r' user='13'/>
+		<actuatorvel name='ankle_pitch_r_v' actuator='ankle_pitch_r' user='13'/>
+
+		<!--frc-->
+		<actuatorfrc name='hip_yaw_l_f' actuator='hip_yaw_l' user='13' noise='1e-3'/>
+		<actuatorfrc name='hip_roll_l_f' actuator='hip_roll_l' user='13' noise='1e-3'/>
+		<actuatorfrc name='hip_pitch_l_f' actuator='hip_pitch_l' user='13' noise='1e-3'/>
+		<actuatorfrc name='knee_pitch_l_f' actuator='knee_pitch_l' user='13' noise='1e-3'/>
+		<actuatorfrc name='ankle_pitch_l_f' actuator='ankle_pitch_l' user='13' noise='1e-3'/>
+		<actuatorfrc name='hip_yaw_r_f' actuator='hip_yaw_r' user='13' noise='1e-3'/>
+		<actuatorfrc name='hip_roll_r_f' actuator='hip_roll_r' user='13' noise='1e-3'/>
+		<actuatorfrc name='hip_pitch_r_f' actuator='hip_pitch_r' user='13' noise='1e-3'/>
+		<actuatorfrc name='knee_pitch_r_f' actuator='knee_pitch_r' user='13' noise='1e-3'/>
+		<actuatorfrc name='ankle_pitch_r_f' actuator='ankle_pitch_r' user='13' noise='1e-3'/>
+
+        <framequat     name='orientation' objtype='site' noise='0.001' objname='imu'/>
+        <framepos      name='position' objtype='site' noise='0.001' objname='imu'/>
+        <gyro          name='angular-velocity'    site='imu' noise='0.005' cutoff='34.9'/>
+        <velocimeter   name='linear-velocity'     site='imu' noise='0.001' cutoff='30'/>
+        <accelerometer name='linear-acceleration' site='imu' noise='0.005' cutoff='157'/>
+        <magnetometer  name='magnetometer'        site='imu'/>
+		<gyro name="imu_gyro" site="imu" noise="0.0" />
+   		<accelerometer name="imu_acc" site="imu" />
+    </sensor>
+</mujoco>

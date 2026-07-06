@@ -1,0 +1,17 @@
+[project]
+name = "qmini-description"
+version = "1.0.0"
+description = "URDF/MuJoCo descriptions for the Qmini robot, plus the URDF->MJCF build script for qmini_description."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "BSD" }
+dependencies = [
+    # Used by build_mujoco_xml.py (URDF compile) and to load/view the mjcf model.
+    "mujoco>=3.9",
+]
+
+# This repo is a set of robot descriptions + a standalone build script, not an
+# importable Python package — tell uv not to try to build/install it, just manage
+# the environment and dependencies.
+[tool.uv]
+package = false

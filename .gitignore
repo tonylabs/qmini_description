@@ -3,3 +3,6 @@
 
 # JetBrains
 /.idea
+
+# uv / Python virtual environment
+.venv

@@ -1,0 +1,166 @@
+<mujoco model="qmini_terrain">
+	<!-- Self-contained terrain-training world for qmini.
+
+	     A progressive obstacle course laid out along +X (robot spawns at the origin
+	     facing +X). Difficulty ramps up zone by zone:
+	       A  x<1.5      flat start / settle
+	       B  1.6-3.4    rough uneven ground (protruding tiles)
+	       C  3.7-5.1    washboard / wavy bumps
+	       D  5.5-7.7    gentle hill (ramp up, plateau, ramp down)
+	       E  8.0-10.6   small stairs up to a landing, then down
+	       F  10.9-12.1  raised stepping platforms (zig-zag foot placement)
+	       G  12.8-14.0  step-over barriers (increasing height)
+	       H  x>14.5     flat finish
+
+	     Ground is a flat plane at z=0 (same as scene.xml's floor), but this world
+	     does NOT include scene.xml — it defines its own fog/lighting. It pulls
+	     in dependencies.xml only (compiler +
+	     mesh + plane-material assets) and defines its own option/visual/lights here.
+	     All obstacles are additive boxes resting on the ground; the infinite ground
+	     plane is always underfoot, so stepping off an obstacle is a small drop, not
+	     a fall into a void. -->
+
+	<include file="dependencies.xml"/>
+
+	<option timestep='0.001' iterations="50" tolerance="1e-10" solver="Newton" jacobian="dense" cone="elliptic"/>
+
+	<visual>
+		<map fogstart="3" fogend="12" force="0.1" znear="0.1"/>
+		<quality shadowsize="4096" offsamples="4"/>
+		<headlight ambient="0.4 0.4 0.4"/>
+	</visual>
+
+	<asset>
+		<texture type="skybox" builtin="gradient" rgb1=".3 .5 .7" rgb2="0 0 0" width="512" height="512"/>
+	</asset>
+
+	<worldbody>
+		<light castshadow="false" directional="true" diffuse=".3 .3 .3" specular="0.3 0.3 0.3" pos="-2 -2 4" dir="1 1 -2"/>
+		<light directional="true" diffuse=".3 .3 .3" specular="0.3 0.3 0.3" pos="6 -2 4" dir="-1 1 -2"/>
+		<light castshadow="false" directional="true" diffuse=".3 .3 .3" specular="0.3 0.3 0.3" pos="6 2 4" dir="0 -1 -2"/>
+
+		<!-- flat ground at z=0 (infinite plane, always underfoot) -->
+		<geom name="floor" type="plane" pos="0 0 0" size="0 0 0.05" material="matplane" condim="3" friction="1.0 0.005 0.0001" solref="0.004 1" solimp="0.95 0.99 0.001"/>
+
+		<!-- the robot body tree (base_link free body + leg chains) -->
+		<include file="qmini_description.xml"/>
+
+		<!-- ===================== progressive terrain course ===================== -->
+		<!-- Zone B: rough uneven ground (small protruding tiles) -->
+		<geom name="rough_0_0" type="box" pos="1.7 -0.45 0.0000" size="0.13 0.13 0.004" quat="0.99985 0 -0.01745 0" rgba="0.55 0.5 0.45 1" condim="3" friction="1.0 0.005 0.0001" solref="0.004 1" solimp="0.95 0.99 0.001"/>
+		<geom name="rough_0_1" type="box" pos="1.7 -0.15 0.0000" size="0.13 0.13 0.00416" rgba="0.55 0.5 0.45 1" condim="3" friction="1.0 0.005 0.0001" solref="0.004 1" solimp="0.95 0.99 0.001"/>
+		<geom name="rough_0_2" type="box" pos="1.7 0.15 0.0000" size="0.13 0.13 0.00432" quat="0.99985 0 0.01745 0" rgba="0.55 0.5 0.45 1" condim="3" friction="1.0 0.005 0.0001" solref="0.004 1" solimp="0.95 0.99 0.001"/>
+		<geom name="rough_0_3" type="box" pos="1.7 0.45 0.0000" size="0.13 0.13 0.00448" quat="0.99985 0 -0.01745 0" rgba="0.55 0.5 0.45 1" condim="3" friction="1.0 0.005 0.0001" solref="0.004 1" solimp="0.95 0.99 0.001"/>
+		<geom name="rough_1_0" type="box" pos="1.97 -0.45 0.0000" size="0.13 0.13 0.00992" rgba="0.55 0.5 0.45 1" condim="3" friction="1.0 0.005 0.0001" solref="0.004 1" solimp="0.95 0.99 0.001"/>
+		<geom name="rough_1_1" type="box" pos="1.97 -0.15 0.0000" size="0.13 0.13 0.01008" quat="0.99985 0 0.01745 0" rgba="0.55 0.5 0.45 1" condim="3" friction="1.0 0.005 0.0001" solref="0.004 1" solimp="0.95 0.99 0.001"/>
+		<geom name="rough_1_2" type="box" pos="1.97 0.15 0.0000" size="0.13 0.13 0.01024" quat="0.99985 0 -0.01745 0" rgba="0.55 0.5 0.45 1" condim="3" friction="1.0 0.005 0.0001" solref="0.004 1" solimp="0.95 0.99 0.001"/>
+		<geom name="rough_1_3" type="box" pos="1.97 0.45 0.0000" size="0.13 0.13 0.0104" rgba="0.55 0.5 0.45 1" condim="3" friction="1.0 0.005 0.0001" solref="0.004 1" solimp="0.95 0.99 0.001"/>
+		<geom name="rough_2_0" type="box" pos="2.24 -0.45 0.0000" size="0.13 0.13 0.01584" quat="0.99985 0 0.01745 0" rgba="0.55 0.5 0.45 1" condim="3" friction="1.0 0.005 0.0001" solref="0.004 1" solimp="0.95 0.99 0.001"/>
+		<geom name="rough_2_1" type="box" pos="2.24 -0.15 0.0000" size="0.13 0.13 0.016" quat="0.99985 0 -0.01745 0" rgba="0.55 0.5 0.45 1" condim="3" friction="1.0 0.005 0.0001" solref="0.004 1" solimp="0.95 0.99 0.001"/>
+		<geom name="rough_2_2" type="box" pos="2.24 0.15 0.0000" size="0.13 0.13 0.01616" rgba="0.55 0.5 0.45 1" condim="3" friction="1.0 0.005 0.0001" solref="0.004 1" solimp="0.95 0.99 0.001"/>
+		<geom name="rough_2_3" type="box" pos="2.24 0.45 0.0000" size="0.13 0.13 0.01632" quat="0.99985 0 0.01745 0" rgba="0.55 0.5 0.45 1" condim="3" friction="1.0 0.005 0.0001" solref="0.004 1" solimp="0.95 0.99 0.001"/>
+		<geom name="rough_3_0" type="box" pos="2.51 -0.45 0.0000" size="0.13 0.13 0.00576" quat="0.99985 0 -0.01745 0" rgba="0.55 0.5 0.45 1" condim="3" friction="1.0 0.005 0.0001" solref="0.004 1" solimp="0.95 0.99 0.001"/>
+		<geom name="rough_3_1" type="box" pos="2.51 -0.15 0.0000" size="0.13 0.13 0.00592" rgba="0.55 0.5 0.45 1" condim="3" friction="1.0 0.005 0.0001" solref="0.004 1" solimp="0.95 0.99 0.001"/>
+		<geom name="rough_3_2" type="box" pos="2.51 0.15 0.0000" size="0.13 0.13 0.00608" quat="0.99985 0 0.01745 0" rgba="0.55 0.5 0.45 1" condim="3" friction="1.0 0.005 0.0001" solref="0.004 1" solimp="0.95 0.99 0.001"/>
+		<geom name="rough_3_3" type="box" pos="2.51 0.45 0.0000" size="0.13 0.13 0.00624" quat="0.99985 0 -0.01745 0" rgba="0.55 0.5 0.45 1" condim="3" friction="1.0 0.005 0.0001" solref="0.004 1" solimp="0.95 0.99 0.001"/>
+		<geom name="rough_4_0" type="box" pos="2.78 -0.45 0.0000" size="0.13 0.13 0.01168" rgba="0.55 0.5 0.45 1" condim="3" friction="1.0 0.005 0.0001" solref="0.004 1" solimp="0.95 0.99 0.001"/>
+		<geom name="rough_4_1" type="box" pos="2.78 -0.15 0.0000" size="0.13 0.13 0.01184" quat="0.99985 0 0.01745 0" rgba="0.55 0.5 0.45 1" condim="3" friction="1.0 0.005 0.0001" solref="0.004 1" solimp="0.95 0.99 0.001"/>
+		<geom name="rough_4_2" type="box" pos="2.78 0.15 0.0000" size="0.13 0.13 0.012" quat="0.99985 0 -0.01745 0" rgba="0.55 0.5 0.45 1" condim="3" friction="1.0 0.005 0.0001" solref="0.004 1" solimp="0.95 0.99 0.001"/>
+		<geom name="rough_4_3" type="box" pos="2.78 0.45 0.0000" size="0.13 0.13 0.01216" rgba="0.55 0.5 0.45 1" condim="3" friction="1.0 0.005 0.0001" solref="0.004 1" solimp="0.95 0.99 0.001"/>
+		<geom name="rough_5_0" type="box" pos="3.05 -0.45 0.0000" size="0.13 0.13 0.0176" quat="0.99985 0 0.01745 0" rgba="0.55 0.5 0.45 1" condim="3" friction="1.0 0.005 0.0001" solref="0.004 1" solimp="0.95 0.99 0.001"/>
+		<geom name="rough_5_1" type="box" pos="3.05 -0.15 0.0000" size="0.13 0.13 0.01776" quat="0.99985 0 -0.01745 0" rgba="0.55 0.5 0.45 1" condim="3" friction="1.0 0.005 0.0001" solref="0.004 1" solimp="0.95 0.99 0.001"/>
+		<geom name="rough_5_2" type="box" pos="3.05 0.15 0.0000" size="0.13 0.13 0.01792" rgba="0.55 0.5 0.45 1" condim="3" friction="1.0 0.005 0.0001" solref="0.004 1" solimp="0.95 0.99 0.001"/>
+		<geom name="rough_5_3" type="box" pos="3.05 0.45 0.0000" size="0.13 0.13 0.01808" quat="0.99985 0 0.01745 0" rgba="0.55 0.5 0.45 1" condim="3" friction="1.0 0.005 0.0001" solref="0.004 1" solimp="0.95 0.99 0.001"/>
+		<geom name="rough_6_0" type="box" pos="3.32 -0.45 0.0000" size="0.13 0.13 0.00752" quat="0.99985 0 -0.01745 0" rgba="0.55 0.5 0.45 1" condim="3" friction="1.0 0.005 0.0001" solref="0.004 1" solimp="0.95 0.99 0.001"/>
+		<geom name="rough_6_1" type="box" pos="3.32 -0.15 0.0000" size="0.13 0.13 0.00768" rgba="0.55 0.5 0.45 1" condim="3" friction="1.0 0.005 0.0001" solref="0.004 1" solimp="0.95 0.99 0.001"/>
+		<geom name="rough_6_2" type="box" pos="3.32 0.15 0.0000" size="0.13 0.13 0.00784" quat="0.99985 0 0.01745 0" rgba="0.55 0.5 0.45 1" condim="3" friction="1.0 0.005 0.0001" solref="0.004 1" solimp="0.95 0.99 0.001"/>
+		<geom name="rough_6_3" type="box" pos="3.32 0.45 0.0000" size="0.13 0.13 0.008" quat="0.99985 0 -0.01745 0" rgba="0.55 0.5 0.45 1" condim="3" friction="1.0 0.005 0.0001" solref="0.004 1" solimp="0.95 0.99 0.001"/>
+		<!-- Zone C: washboard / wavy bumps -->
+		<geom name="wash_0" type="box" pos="3.7 0 0.0050" size="0.14 0.7 0.012" quat="0.99939 0 0.03490 0" rgba="0.75 0.7 0.6 1" condim="3" friction="1.0 0.005 0.0001" solref="0.004 1" solimp="0.95 0.99 0.001"/>
+		<geom name="wash_1" type="box" pos="3.98 0 0.0050" size="0.14 0.7 0.012" quat="0.99939 0 -0.03490 0" rgba="0.75 0.7 0.6 1" condim="3" friction="1.0 0.005 0.0001" solref="0.004 1" solimp="0.95 0.99 0.001"/>
+		<geom name="wash_2" type="box" pos="4.26 0 0.0050" size="0.14 0.7 0.012" quat="0.99939 0 0.03490 0" rgba="0.75 0.7 0.6 1" condim="3" friction="1.0 0.005 0.0001" solref="0.004 1" solimp="0.95 0.99 0.001"/>
+		<geom name="wash_3" type="box" pos="4.54 0 0.0050" size="0.14 0.7 0.012" quat="0.99939 0 -0.03490 0" rgba="0.75 0.7 0.6 1" condim="3" friction="1.0 0.005 0.0001" solref="0.004 1" solimp="0.95 0.99 0.001"/>
+		<geom name="wash_4" type="box" pos="4.82 0 0.0050" size="0.14 0.7 0.012" quat="0.99939 0 0.03490 0" rgba="0.75 0.7 0.6 1" condim="3" friction="1.0 0.005 0.0001" solref="0.004 1" solimp="0.95 0.99 0.001"/>
+		<geom name="wash_5" type="box" pos="5.1 0 0.0050" size="0.14 0.7 0.012" quat="0.99939 0 -0.03490 0" rgba="0.75 0.7 0.6 1" condim="3" friction="1.0 0.005 0.0001" solref="0.004 1" solimp="0.95 0.99 0.001"/>
+		<!-- Zone D: gentle hill (ramp up, plateau, ramp down) ~4.3 deg -->
+		<geom name="hill_up" type="box" pos="5.9 0 0.0300" size="0.4 0.7 0.018" quat="0.99930 0 -0.03752 0" rgba="0.6 0.65 0.55 1" condim="3" friction="1.0 0.005 0.0001" solref="0.004 1" solimp="0.95 0.99 0.001"/>
+		<geom name="hill_top" type="box" pos="6.6 0 0.0300" size="0.3 0.7 0.03" rgba="0.55 0.6 0.5 1" condim="3" friction="1.0 0.005 0.0001" solref="0.004 1" solimp="0.95 0.99 0.001"/>
+		<geom name="hill_down" type="box" pos="7.3 0 0.0300" size="0.4 0.7 0.018" quat="0.99930 0 0.03752 0" rgba="0.6 0.65 0.55 1" condim="3" friction="1.0 0.005 0.0001" solref="0.004 1" solimp="0.95 0.99 0.001"/>
+		<!-- Zone E: small stairs (rise 2.5 cm), up to a landing then down -->
+		<geom name="stair_up_1" type="box" pos="8.1 0 0.0125" size="0.14 0.7 0.0125" rgba="0.5 0.55 0.65 1" condim="3" friction="1.0 0.005 0.0001" solref="0.004 1" solimp="0.95 0.99 0.001"/>
+		<geom name="stair_up_2" type="box" pos="8.38 0 0.0250" size="0.14 0.7 0.025" rgba="0.5 0.55 0.65 1" condim="3" friction="1.0 0.005 0.0001" solref="0.004 1" solimp="0.95 0.99 0.001"/>
+		<geom name="stair_up_3" type="box" pos="8.66 0 0.0375" size="0.14 0.7 0.0375" rgba="0.5 0.55 0.65 1" condim="3" friction="1.0 0.005 0.0001" solref="0.004 1" solimp="0.95 0.99 0.001"/>
+		<geom name="stair_landing" type="box" pos="8.94 0 0.0375" size="0.28 0.7 0.0375" rgba="0.45 0.5 0.6 1" condim="3" friction="1.0 0.005 0.0001" solref="0.004 1" solimp="0.95 0.99 0.001"/>
+		<geom name="stair_dn_3" type="box" pos="9.22 0 0.0375" size="0.14 0.7 0.0375" rgba="0.5 0.55 0.65 1" condim="3" friction="1.0 0.005 0.0001" solref="0.004 1" solimp="0.95 0.99 0.001"/>
+		<geom name="stair_dn_2" type="box" pos="9.5 0 0.0250" size="0.14 0.7 0.025" rgba="0.5 0.55 0.65 1" condim="3" friction="1.0 0.005 0.0001" solref="0.004 1" solimp="0.95 0.99 0.001"/>
+		<geom name="stair_dn_1" type="box" pos="9.78 0 0.0125" size="0.14 0.7 0.0125" rgba="0.5 0.55 0.65 1" condim="3" friction="1.0 0.005 0.0001" solref="0.004 1" solimp="0.95 0.99 0.001"/>
+		<!-- Zone F: raised stepping platforms (zig-zag foot placement) -->
+		<geom name="step_pad_0" type="box" pos="10.9 -0.22 0.0150" size="0.13 0.13 0.015" rgba="0.7 0.55 0.4 1" condim="3" friction="1.0 0.005 0.0001" solref="0.004 1" solimp="0.95 0.99 0.001"/>
+		<geom name="step_pad_1" type="box" pos="11.3 0.22 0.0150" size="0.13 0.13 0.015" rgba="0.7 0.55 0.4 1" condim="3" friction="1.0 0.005 0.0001" solref="0.004 1" solimp="0.95 0.99 0.001"/>
+		<geom name="step_pad_2" type="box" pos="11.7 -0.22 0.0150" size="0.13 0.13 0.015" rgba="0.7 0.55 0.4 1" condim="3" friction="1.0 0.005 0.0001" solref="0.004 1" solimp="0.95 0.99 0.001"/>
+		<geom name="step_pad_3" type="box" pos="12.1 0.22 0.0150" size="0.13 0.13 0.015" rgba="0.7 0.55 0.4 1" condim="3" friction="1.0 0.005 0.0001" solref="0.004 1" solimp="0.95 0.99 0.001"/>
+		<!-- Zone G: step-over barriers (increasing height) -->
+		<geom name="barrier_0" type="box" pos="12.8 0 0.0125" size="0.03 0.7 0.0125" rgba="0.8 0.4 0.35 1" condim="3" friction="1.0 0.005 0.0001" solref="0.004 1" solimp="0.95 0.99 0.001"/>
+		<geom name="barrier_1" type="box" pos="13.4 0 0.0175" size="0.03 0.7 0.0175" rgba="0.8 0.4 0.35 1" condim="3" friction="1.0 0.005 0.0001" solref="0.004 1" solimp="0.95 0.99 0.001"/>
+		<geom name="barrier_2" type="box" pos="14 0 0.0225" size="0.03 0.7 0.0225" rgba="0.8 0.4 0.35 1" condim="3" friction="1.0 0.005 0.0001" solref="0.004 1" solimp="0.95 0.99 0.001"/>
+	</worldbody>
+
+	<actuator>
+		<motor name="hip_yaw_l" joint="hip_yaw_l" gear="1" ctrllimited="true" ctrlrange="-20 20"/>
+		<motor name="hip_roll_l" joint="hip_roll_l" gear="1" ctrllimited="true" ctrlrange="-60 60"/>
+		<motor name="hip_pitch_l" joint="hip_pitch_l" gear="1" ctrllimited="true" ctrlrange="-20 20"/>
+		<motor name="knee_pitch_l" joint="knee_pitch_l" gear="1" ctrllimited="true" ctrlrange="-20 20"/>
+		<motor name="ankle_pitch_l" joint="ankle_pitch_l" gear="1" ctrllimited="true" ctrlrange="-20 20"/>
+		<motor name="hip_yaw_r" joint="hip_yaw_r" gear="1" ctrllimited="true" ctrlrange="-20 20"/>
+		<motor name="hip_roll_r" joint="hip_roll_r" gear="1" ctrllimited="true" ctrlrange="-60 60"/>
+		<motor name="hip_pitch_r" joint="hip_pitch_r" gear="1" ctrllimited="true" ctrlrange="-20 20"/>
+		<motor name="knee_pitch_r" joint="knee_pitch_r" gear="1" ctrllimited="true" ctrlrange="-20 20"/>
+		<motor name="ankle_pitch_r" joint="ankle_pitch_r" gear="1" ctrllimited="true" ctrlrange="-20 20"/>
+    </actuator>
+
+    <sensor>
+		<actuatorpos name='hip_yaw_l_p' actuator='hip_yaw_l' user='13'/>
+		<actuatorpos name='hip_roll_l_p' actuator='hip_roll_l' user='13'/>
+		<actuatorpos name='hip_pitch_l_p' actuator='hip_pitch_l' user='13'/>
+		<actuatorpos name='knee_pitch_l_p' actuator='knee_pitch_l' user='13'/>
+		<actuatorpos name='ankle_pitch_l_p' actuator='ankle_pitch_l' user='13'/>
+		<actuatorpos name='hip_yaw_r_p' actuator='hip_yaw_r' user='13'/>
+		<actuatorpos name='hip_roll_r_p' actuator='hip_roll_r' user='13'/>
+		<actuatorpos name='hip_pitch_r_p' actuator='hip_pitch_r' user='13'/>
+		<actuatorpos name='knee_pitch_r_p' actuator='knee_pitch_r' user='13'/>
+		<actuatorpos name='ankle_pitch_r_p' actuator='ankle_pitch_r' user='13'/>
+
+		<!--velocity-->
+		<actuatorvel name='hip_yaw_l_v' actuator='hip_yaw_l' user='13'/>
+		<actuatorvel name='hip_roll_l_v' actuator='hip_roll_l' user='13'/>
+		<actuatorvel name='hip_pitch_l_v' actuator='hip_pitch_l' user='13'/>
+		<actuatorvel name='knee_pitch_l_v' actuator='knee_pitch_l' user='13'/>
+		<actuatorvel name='ankle_pitch_l_v' actuator='ankle_pitch_l' user='13'/>
+		<actuatorvel name='hip_yaw_r_v' actuator='hip_yaw_r' user='13'/>
+		<actuatorvel name='hip_roll_r_v' actuator='hip_roll_r' user='13'/>
+		<actuatorvel name='hip_pitch_r_v' actuator='hip_pitch_r' user='13'/>
+		<actuatorvel name='knee_pitch_r_v' actuator='knee_pitch_r' user='13'/>
+		<actuatorvel name='ankle_pitch_r_v' actuator='ankle_pitch_r' user='13'/>
+
+		<!--friction-->
+		<actuatorfrc name='hip_yaw_l_f' actuator='hip_yaw_l' user='13' noise='1e-3'/>
+		<actuatorfrc name='hip_roll_l_f' actuator='hip_roll_l' user='13' noise='1e-3'/>
+		<actuatorfrc name='hip_pitch_l_f' actuator='hip_pitch_l' user='13' noise='1e-3'/>
+		<actuatorfrc name='knee_pitch_l_f' actuator='knee_pitch_l' user='13' noise='1e-3'/>
+		<actuatorfrc name='ankle_pitch_l_f' actuator='ankle_pitch_l' user='13' noise='1e-3'/>
+		<actuatorfrc name='hip_yaw_r_f' actuator='hip_yaw_r' user='13' noise='1e-3'/>
+		<actuatorfrc name='hip_roll_r_f' actuator='hip_roll_r' user='13' noise='1e-3'/>
+		<actuatorfrc name='hip_pitch_r_f' actuator='hip_pitch_r' user='13' noise='1e-3'/>
+		<actuatorfrc name='knee_pitch_r_f' actuator='knee_pitch_r' user='13' noise='1e-3'/>
+		<actuatorfrc name='ankle_pitch_r_f' actuator='ankle_pitch_r' user='13' noise='1e-3'/>
+
+        <framequat name='orientation' objtype='site' noise='0.001' objname='imu'/>
+        <framepos name='position' objtype='site' noise='0.001' objname='imu'/>
+        <gyro name='angular-velocity' site='imu' noise='0.005' cutoff='34.9'/>
+        <velocimeter name='linear-velocity' site='imu' noise='0.001' cutoff='30'/>
+        <accelerometer name='linear-acceleration' site='imu' noise='0.005' cutoff='157'/>
+        <magnetometer name='magnetometer' site='imu'/>
+		<gyro name="imu_gyro" site="imu" noise="0.0" />
+   		<accelerometer name="imu_acc" site="imu" />
+    </sensor>
+</mujoco>
